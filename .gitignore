@@ -1,14 +1,12 @@
-// Next.js + Firebase mobile-first fitness app full structure - Phase 1: Core Pages & Functions
+// Next.js + Firebase Mobile-First Fitness App - Full Setup for Netlify with Plugin
 
-// This is the initial setup for the 'Your Way to Your Dream Body' app, mobile-first, with registration, body scan, light/dark mode, i18n, and anime images.
-
-import { useState } from 'react'; import Head from 'next/head'; import Image from 'next/image';
+import { useState } from 'react'; import Head from 'next/head';
 
 export default function Home() { const [darkMode, setDarkMode] = useState(false); const [language, setLanguage] = useState('en'); const [showScan, setShowScan] = useState(false); const [formData, setFormData] = useState({ age: '', height: '', weight: '', activity: 'medium' }); const [result, setResult] = useState(null);
 
 const handleInputChange = (e) => { const { name, value } = e.target; setFormData({ ...formData, [name]: value }); };
 
-const calculateBodyType = () => { // Simple logic for demonstration const { age, height, weight, activity } = formData; let bodyType = 'Ectomorph'; if(weight/height > 0.5) bodyType = 'Endomorph'; else if(weight/height > 0.35) bodyType = 'Mesomorph';
+const calculateBodyType = () => { const { age, height, weight, activity } = formData; let bodyType = 'Ectomorph'; if(weight/height > 0.5) bodyType = 'Endomorph'; else if(weight/height > 0.35) bodyType = 'Mesomorph';
 
 const muscleMass = Math.round(weight * 0.4);
 const fatMass = Math.round(weight * 0.2);
@@ -23,11 +21,9 @@ setResult({ bodyType, muscleMass, fatMass, calories, protein, carbs, sugar });
 
 return ( <div className={darkMode ? 'bg-gray-900 text-white' : 'bg-white text-black'}> <Head> <title>Your Way to Your Dream Body</title> </Head>
 
-{/* Header with Dark/Light and Language */}
+{/* Header */}
   <header className="flex justify-between p-4">
-    <button onClick={() => setDarkMode(!darkMode)} className="text-xl">
-      {darkMode ? '🌙' : '☀️'}
-    </button>
+    <button onClick={() => setDarkMode(!darkMode)} className="text-xl">{darkMode ? '🌙' : '☀️'}</button>
     <select value={language} onChange={(e) => setLanguage(e.target.value)} className="border rounded px-2">
       <option value="en">English</option>
       <option value="ar">Arabic</option>
@@ -37,7 +33,7 @@ return ( <div className={darkMode ? 'bg-gray-900 text-white' : 'bg-white text-bl
     </select>
   </header>
 
-  {/* Welcome Message */}
+  {/* Welcome */}
   <main className="p-4 text-center">
     <h1 className="text-2xl font-bold mb-6">Welcome here Champ, let's start cooking 🔥</h1>
     <button onClick={() => setShowScan(true)} className="bg-blue-500 text-white px-6 py-3 rounded-lg font-bold">Scan Your Body Type</button>
